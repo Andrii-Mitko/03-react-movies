@@ -1,3 +1,5 @@
 import css from "./Loader.module.css";
 
-<p className={css.text}>Loading movies, please wait...</p>;
+export default function Loader() {
+  return <p className={css.text}>Loading movies, please wait...</p>;
+}
