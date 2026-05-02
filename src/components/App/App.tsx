@@ -51,16 +51,10 @@ export default function App() {
       )}
 
       {isLoading && <Loader />}
+
       {error && <ErrorMessage />}
 
       {!isLoading && !error && movies.length > 0 && (
-        <MovieGrid
-          movies={movies}
-          onSelect={(movie) => setSelectedMovie(movie)}
-        />
-      )}
-      {error && <ErrorMessage />}
-      {movies.length > 0 && (
         <MovieGrid
           movies={movies}
           onSelect={(movie) => setSelectedMovie(movie)}
