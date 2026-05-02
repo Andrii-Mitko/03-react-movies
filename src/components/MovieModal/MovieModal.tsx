@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import css from "./MovieModal.module.css";
+import { useEffect } from "react";
 
 interface MovieModalProps {
   movie: {
@@ -13,9 +14,28 @@ interface MovieModalProps {
 }
 
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return createPortal(
-    <div className={css.backdrop} role="dialog" aria-modal="true">
-      <div className={css.modal}>
+    <div
+      className={css.backdrop}
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+    >
+      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
         <button
           className={css.closeButton}
           onClick={onClose}
